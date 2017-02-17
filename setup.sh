@@ -1,4 +1,4 @@
-#/usr/bin/env bash
+#!/usr/bin/env bash
 # Setup file for windows subsystem for linux
 # By yoieh, 2017-02-07
 
