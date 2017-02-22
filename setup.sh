@@ -1,10 +1,12 @@
 #!/usr/bin/env bash
 # Setup file for windows subsystem for linux
-# By yoieh, 2017-02-07
+# By yoieh, 2017-02-07 - 2017-02-22
 
 # Update and upgrade system
-sudo apt update
-sudo apt upgrade
+sudo apt -y update
+sudo apt -y upgrade
+
+mkdir ~/tmp
 
 # Turn of terminal bell
 INPUTRC_CONF=~/.inputrc
@@ -14,7 +16,7 @@ echo "# Turn of terminal bell" >> ${INPUTRC_CONF}
 echo "set bell-style none" >> ${INPUTRC_CONF}
 
 # Install git, this will allready be installed..
-sudo apt install git
+sudo apt -y install git
 
 # Vim setup
 git clone https://github.com/amix/vimrc.git ~/.vim_runtime
@@ -38,16 +40,36 @@ curl -sL https://raw.githubusercontent.com/egalpin/apt-vim/master/install.sh | s
 apt-vim install -y https://github.com/scrooloose/nerdtree.git
 
 # Install NodeJs and npm
-sudo apt install nodejs npm
+sudo apt -y install nodejs npm
 
 # Install bower
 sudo npm install -g bower
 sudo ln -s /usr/bin/nodejs /usr/bin/node
 
 # Install php
-sudo apt install php5-cli
+sudo apt -y install php5-cli
 
 # Install composer
 curl -sS https://getcomposer.org/installer | sudo php -- --install-dir=/usr/local/bin --filename=composer
+
+# Install docker engin
+wget https://get.docker.com/builds/Linux/x86_64/docker-1.13.1.tgz -P ~/tmp
+tar -xzvf ~/tmp/docker-1.13.1.tgz
+mkdir ~/bin
+mv docker ~/bin
+
+echo "export DOCKER_HOST=tcp://0.0.0.0:2375" >> ~/.bashrc
+echo "export PATH=$PATH:~/bin" >> ~/.bashrc
+
+echo "#Docker Alias" > ~/.bash_aliases
+echo "alias docker='~/bin/docker/docker'" >> ~/.bash_aliases
+
+echo "alias cdwh='cd /mnt/c/Users'" >> ~/.bash_aliases
+
+# Remove temp dir
+rm -rf ~/tmp
+
+# Reload .bashrc
+. ~/.bashrc
 
 exit 0
