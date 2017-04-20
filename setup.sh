@@ -47,7 +47,8 @@ sudo npm install -g bower
 sudo ln -s /usr/bin/nodejs /usr/bin/node
 
 # Install php
-sudo apt -y install php5-cli
+#sudo apt -y install php5-cli
+sudo apt-get install curl php-cli php-mbstring git unzip
 
 # Install composer
 curl -sS https://getcomposer.org/installer | sudo php -- --install-dir=/usr/local/bin --filename=composer
